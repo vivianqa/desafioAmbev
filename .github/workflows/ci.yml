@@ -27,3 +27,5 @@ jobs:
 
       - name: Executar testes Cypress
         run: npm test
+
+# Disparo manual do pipeline CI/CD
