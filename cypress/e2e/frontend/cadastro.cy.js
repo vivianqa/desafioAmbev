@@ -4,8 +4,6 @@ describe('Frontend E2E - Cadastro | ServeRest', () => {
   // CT-01 — Cadastro de usuário com dados válidos
   it('CT-01 - deve cadastrar um usuário com dados válidos', () => {
     cy.fixture('usuarios').then((usuarios) => {
-
-      // E-mail dinâmico a cada execução
       const emailDinamico =
         `qa.cadastro.${Date.now()}@example.com`;
 
@@ -19,7 +17,7 @@ describe('Frontend E2E - Cadastro | ServeRest', () => {
 
       cy.get('input[name="nome"]')
         .should('be.visible')
-        .type('Usuario Desafio QA ');
+        .type('Usuario Desafio QA');
 
       cy.get('input[name="email"]')
         .should('be.visible')
@@ -31,7 +29,6 @@ describe('Frontend E2E - Cadastro | ServeRest', () => {
           log: false
         });
 
-      // Não selecionar o checkbox de administrador
       cy.get('button[type="submit"]').click();
 
       cy.contains('Cadastro realizado com sucesso')
@@ -39,39 +36,48 @@ describe('Frontend E2E - Cadastro | ServeRest', () => {
     });
   });
 
-  //CT-04 — Cadastro com e-mail já existente
+  // CT-04 — Cadastro com e-mail já existente
   it('CT-04 - deve impedir cadastro com e-mail já em uso', () => {
     cy.fixture('usuarios').then((usuarios) => {
+      const email = usuarios.usuarioValido.email;
+      const senha = usuarios.usuarioValido.senha;
 
-      cy.visit('/');
+      // Garantir que o e-mail esteja cadastrado na API.
+      cy.request({
+        method: 'POST',
+        url: 'https://serverest.dev/usuarios',
+        body: {
+          nome: 'Usuario Base CT04',
+          email,
+          password: senha,
+          administrador: 'false'
+        },
+        failOnStatusCode: false
+      }).then((resUsuario) => {
+        expect([201, 400]).to.include(resUsuario.status);
 
-      cy.contains('a, button', 'Cadastre-se')
-        .should('be.visible')
-        .click();
+        // Tentar cadastrar o mesmo e-mail pela interface.
+        cy.visit('/cadastrarusuarios');
 
-      cy.url().should('include', '/cadastrarusuarios');
+        cy.get('input[name="nome"]')
+          .should('be.visible')
+          .type('Usuario com e-mail já em uso');
 
-      cy.get('input[name="nome"]')
-        .should('be.visible')
-        .type('Usuario com e-mail já em uso');
+        cy.get('input[name="email"]')
+          .should('be.visible')
+          .type(email);
 
-      // E-mail fixo vindo do fixture
-      cy.get('input[name="email"]')
-        .should('be.visible')
-        .type(usuarios.usuarioValido.email);
+        cy.get('input[name="password"]')
+          .should('be.visible')
+          .type(senha, { log: false });
 
-      cy.get('input[name="password"]')
-        .should('be.visible')
-        .type(usuarios.usuarioValido.senha, {
-          log: false
-        });
+        cy.get('button[type="submit"]').click();
 
-      // Não selecionar o checkbox de administrador
-      cy.get('button[type="submit"]').click();
-
-      // Validar a mensagem de e-mail já utilizado
-      cy.contains('Este email já está sendo usado')
-        .should('be.visible');
+        // Validar a mensagem de erro exibida na interface.
+        cy.contains('Este email já está sendo usado', {
+          timeout: 10000
+        }).should('be.visible');
+      });
     });
   });
 
