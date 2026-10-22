@@ -1,0 +1,8 @@
+{
+  "produtoDuplicado": {
+    "nome": "Produto QA Duplicidade",
+    "preco": 100,
+    "descricao": "Produto utilizado no teste CT-06",
+    "quantidade": 10
+  }
+}

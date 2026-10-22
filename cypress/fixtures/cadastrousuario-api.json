@@ -1,0 +1,7 @@
+{
+  "usuarioAdministrador": {
+    "nome": "Administrador QA",
+    "password": "TesteAmbev123!",
+    "administrador": "true"
+  }
+}

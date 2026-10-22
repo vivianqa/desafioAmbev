@@ -1,0 +1,16 @@
+{
+  "usuarioValido": {
+    "email": "qa.desafiofrontend@ambev.com",
+    "senha": "TesteAmbev123!"
+  },
+  "usuarioInvalido": {
+    "email": "qainvalido.desafio@ambev.com",
+    "senha": "TesteAmbev123!"
+  },
+  "usuarioApi": {
+    "nome": "Usuário API",
+    "email": "qaAPI.@ambev.com",
+    "password": "TesteAmbev123!",
+	"administrador": "true"
+  }
+}
