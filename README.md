@@ -4,23 +4,25 @@
 
 Projeto de automação de testes desenvolvido para o Desafio Ambev, utilizando Cypress e JavaScript para validar os principais fluxos de cadastro, autenticação e operações de API da aplicação ServeRest.
 
-O projeto contempla 7 cenários de testes automatizados, divididos entre frontend E2E e API, abrangendo comportamentos positivos, negativos e alternativos.
+O projeto contempla 7 cenários de testes automatizados, distribuídos entre testes de frontend (E2E) e API, abrangendo comportamentos positivos, negativos e alternativos.
 
 📑 Sumário
-Objetivo do projeto
-Tecnologias utilizadas
-Cenários de teste
-Estrutura do projeto
-Pré-requisitos
-Instalação e execução
-Testes de frontend
-Testes de API
-Critérios de validação
-Links úteis
-
+🎯 Objetivo do projeto
+🛠️ Tecnologias utilizadas
+🧪 Estratégia de testes
+📋 Cenários de teste
+📁 Estrutura do projeto
+⚙️ Pré-requisitos
+🚀 Instalação e execução
+🖥️ Testes de frontend
+🔌 Testes de API
+▶️ Execução pelo PowerShell
+✅ Critérios de validação
+📌 Boas práticas
+🔗 Links úteis
 🎯 Objetivo do projeto
 
-Desenvolver testes automatizados utilizando Cypress para validar funcionalidades da aplicação ServeRest.
+Desenvolver testes automatizados utilizando Cypress para validar funcionalidades da aplicação ServeRest, garantindo o comportamento esperado da interface e dos endpoints da API.
 
 Os principais objetivos são:
 
@@ -32,18 +34,20 @@ Garantir a independência e a repetibilidade dos testes.
 Aplicações utilizadas
 Aplicação	Descrição
 ServeRest Frontend	Interface web para testes E2E
-ServeRest API	API REST e documentação Swagger
+ServeRest API	API REST para testes de integração
+Swagger	Documentação dos endpoints da API
 🛠️ Tecnologias utilizadas
-Cypress: automação de testes E2E e API.
-JavaScript: linguagem utilizada no desenvolvimento dos testes.
-Node.js: ambiente de execução.
-npm: gerenciamento de dependências.
-BDD: abordagem de desenvolvimento orientado a comportamento.
-Gherkin: especificação dos cenários de teste.
-Visual Studio Code: ambiente de desenvolvimento.
+Tecnologia	Finalidade
+Cypress	Automação de testes E2E e API
+JavaScript	Linguagem utilizada nos testes
+Node.js	Ambiente de execução
+npm	Gerenciamento de dependências
+BDD	Abordagem de desenvolvimento orientado a comportamento
+Gherkin	Especificação de cenários de teste
+Visual Studio Code	Ambiente de desenvolvimento
 🧪 Estratégia de testes
 
-Os cenários seguem a abordagem BDD, baseada na estrutura:
+Os cenários seguem os princípios da abordagem BDD (Behavior-Driven Development), utilizando a estrutura:
 
 Dado (Given): contexto inicial do teste.
 Quando (When): ação realizada.
@@ -51,9 +55,13 @@ Então (Then): resultado esperado.
 
 O projeto está dividido em duas camadas:
 
-Frontend E2E: valida os fluxos de cadastro e login pela interface gráfica.
+Frontend E2E
 
-API: valida requisições HTTP, códigos de resposta, mensagens, autenticação e regras de negócio.
+Valida os fluxos de cadastro e login pela interface gráfica da aplicação.
+
+API
+
+Valida requisições HTTP, códigos de resposta, mensagens, autenticação e regras de negócio.
 
 📋 Cenários de teste
 🖥️ Frontend E2E
@@ -89,25 +97,23 @@ desafioAmbev/
 ├── package-lock.json
 └── README.md
 
-Organização:
-
+Organização dos diretórios
 cypress/e2e/frontend/: testes de cadastro e login.
 cypress/e2e/api/: testes dos endpoints da API.
 cypress/fixtures/: dados utilizados nos testes.
 cypress/support/: comandos personalizados e configurações.
 cypress.config.js: configuração do Cypress.
-abrir-cypress.ps1: execução seletiva pelo PowerShell.
+abrir-cypress.ps1: execução seletiva dos testes pelo PowerShell.
 package.json: dependências e scripts do projeto.
 ⚙️ Pré-requisitos
 
-Antes de começar, instale:
+Antes de executar o projeto, instale:
 
-Node.js
-npm
+Node.js e npm
 Git
 Visual Studio Code
 
-Verifique as instalações:
+Verifique se as ferramentas estão instaladas:
 
 node -v
 npm -v
@@ -115,26 +121,26 @@ git --version
 
 🚀 Instalação e execução
 1. Clonar o repositório
-git clone <https://github.com/vivianqa/desafioAmbev>
+git clone https://github.com/vivianqa/desafioAmbev.git
 cd desafioAmbev
 
 2. Instalar as dependências
 npm install
 
-3. Abrir o Cypress
+3. Abrir a interface do Cypress
 npx cypress open
 
-4. Executar todos os testes
+4. Executar todos os testes em modo headless
 npx cypress run
 
 5. Executar um arquivo específico
 
-Exemplo para os testes de login:
+Testes de login:
 
 npx cypress run --spec "cypress/e2e/frontend/login.cy.js"
 
 
-Exemplo para os testes de produtos:
+Testes de produtos:
 
 npx cypress run --spec "cypress/e2e/api/produtos-api.cy.js"
 
@@ -144,7 +150,7 @@ Acessar a página de cadastro.
 Preencher nome, e-mail e senha.
 Solicitar o cadastro.
 Validar a mensagem de sucesso.
-CT-02 — Login válido
+CT-02 — Login com credenciais válidas
 Acessar a página de login.
 Informar credenciais válidas.
 Solicitar a autenticação.
@@ -153,17 +159,16 @@ CT-03 — Login com senha incorreta
 Informar um e-mail cadastrado e uma senha incorreta.
 Solicitar a autenticação.
 Validar o bloqueio de acesso e a mensagem de erro.
-CT-04 — E-mail já cadastrado
+CT-04 — Cadastro com e-mail já existente
 Utilizar um e-mail previamente cadastrado.
 Tentar realizar um novo cadastro.
 Validar o impedimento da duplicidade.
-
 🔌 Testes de API
-CT-05 — Cadastro de administrador
+CT-05 — Cadastro de usuário administrador
 
 Endpoint: POST /usuarios
 
-Enviar dados válidos com administrador definido como "true".
+Enviar dados válidos com o campo de administrador definido como true.
 Validar o status HTTP 201.
 Verificar a mensagem de sucesso.
 Validar o identificador retornado.
@@ -174,7 +179,7 @@ Endpoint: POST /produtos
 Autenticar um usuário administrador.
 Obter o token de autorização.
 Cadastrar um produto.
-Tentar cadastrar novamente o mesmo nome.
+Tentar cadastrar novamente um produto com o mesmo nome.
 Validar o status HTTP 400 e a mensagem de erro.
 CT-07 — Cadastro de carrinho
 
@@ -199,7 +204,11 @@ Comando	Descrição
 
 Execute os comandos em um terminal PowerShell, na raiz do projeto.
 
+Observação: caso o PowerShell bloqueie a execução do script, verifique a política de execução configurada no ambiente.
 ✅ Critérios de validação
+
+Os testes verificam os seguintes comportamentos:
+
 Cadastro de usuários com dados válidos.
 Login com credenciais válidas.
 Bloqueio de autenticação inválida.
@@ -219,14 +228,18 @@ Validação explícita das respostas da API.
 Separação entre testes de frontend e API.
 Identificação dos cenários por códigos CT-01 a CT-07.
 🔗 Links úteis
-🌐 ServeRest Frontend
-📘 ServeRest API / Swagger
+🌐 Repositório do projeto
+🌐 ServeRest
+📘 Documentação da API ServeRest
 🧪 Documentação do Cypress
 🟨 Documentação JavaScript
 🥒 Documentação Gherkin
 🟢 Node.js
 💻 Visual Studio Code
-
-Desafio Ambev — Automação de Testes com Cypress
+👩‍💻 Considerações finais
 
 Projeto desenvolvido com foco em qualidade de software, validação de regras de negócio e automação de testes de frontend e API.
+
+A iniciativa demonstra a aplicação prática do Cypress e do JavaScript na criação de cenários automatizados, organizados e direcionados à validação de funcionalidades essenciais de uma aplicação web.
+
+Desafio Ambev — Automação de Testes com Cypress
