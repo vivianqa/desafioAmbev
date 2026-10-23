@@ -115,7 +115,7 @@ git --version
 
 🚀 Instalação e execução
 1. Clonar o repositório
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone <https://github.com/vivianqa/desafioAmbev>
 cd desafioAmbev
 
 2. Instalar as dependências
