@@ -17,6 +17,7 @@ Testes de frontend
 Testes de API
 Critérios de validação
 Links úteis
+
 🎯 Objetivo do projeto
 
 Desenvolver testes automatizados utilizando Cypress para validar funcionalidades da aplicação ServeRest.
@@ -88,7 +89,6 @@ desafioAmbev/
 ├── package-lock.json
 └── README.md
 
-
 Organização:
 
 cypress/e2e/frontend/: testes de cadastro e login.
@@ -157,6 +157,7 @@ CT-04 — E-mail já cadastrado
 Utilizar um e-mail previamente cadastrado.
 Tentar realizar um novo cadastro.
 Validar o impedimento da duplicidade.
+
 🔌 Testes de API
 CT-05 — Cadastro de administrador
 
